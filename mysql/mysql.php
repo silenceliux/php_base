@@ -29,7 +29,7 @@
         $result = mysqli_query($conn, "SELECT * FROM persons");
         //处理返回的数据集
         $data = [];
-        while($row = mysqli_fetch_assoc($result)) {//mysqli_fetch_array
+        while($row = mysqli_fetch_array($result)) {//mysqli_fetch_array
         $data[] = $row;
         }
 
