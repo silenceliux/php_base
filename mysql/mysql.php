@@ -19,6 +19,12 @@
         //选择数据库
         //mysqli_select_db($conn, $db_name) or die('选择数据库失败！');
 
+        //添加数据
+        // mysqli_query($conn, "insert into persons values('si','m',12)");
+        //修改数据
+       // mysqli_query($conn, "update persons set age=14 where name='si'");
+        //删除数据
+        mysqli_query($conn, "delete from persons where name='si'");
         //查询数据库
         $result = mysqli_query($conn, "SELECT * FROM persons");
         //处理返回的数据集
