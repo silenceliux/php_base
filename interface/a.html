@@ -11,6 +11,8 @@
         url:"/interface/b.php",
         type:"get",
         success:function(data){
+            data = JSON.parse(data);
+//            console.log(data);
             console.log(data);
         }
     })
