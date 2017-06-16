@@ -36,5 +36,11 @@
         //在页面上打印
         var_dump($data);
 ?>
+<?php
+        foreach($data as $key=>$val) {
+        echo "</br>";
+        print_r($val->name);
+        }
+        ?>
 </body>
 </html>
