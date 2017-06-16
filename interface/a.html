@@ -10,8 +10,11 @@
     $.ajax({
         url:"/interface/b.php",
         type:"get",
+        data:{
+            name:123,
+            age:12
+        },
         success:function(data){
-            data = JSON.parse(data);
 //            console.log(data);
             console.log(data);
         }
