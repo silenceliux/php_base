@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<textarea name="" id="" cols="30" rows="10"></textarea>
+<span onclick="add()">确定</span>
+<input type="text"/>
+
+<span onclick="modify()">修改</span>
+<div id="list">
+
+</div>
+<script src="jquery-1.9.1.min.js"></script>
+<script>
+    function getList(){
+        $.ajax({
+            url:"./api.php",
+            type:"post",
+            data:{
+                name:"list"
+            },
+            success:function(data){
+               data = JSON.parse(data);
+               $("#list").html("");
+                for(var i=0;i<data.length;i++){
+                    $("#list").append("<div data-id='"+data[i].id+"'>"+data[i].content+"</div>");
+                }
+            }
+        })
+    }
+    function add(){
+        $.ajax({
+            url:"./api.php",
+            data:{
+                name:"add",
+                content:$("textarea").val()
+            },
+            type:"post",
+            success:function(data){
+
+                getList();
+            }
+        })
+    }
+    function remove(id){
+        $.ajax({
+            url:"./api.php",
+            data:{
+                name:"remove",
+                id:id
+            },
+            type:"post",
+            success:function(data){
+                console.log(data);
+                getList();
+            }
+        })
+    }
+    function modify(){
+        $.ajax({
+            url:"./api.php",
+            data:{
+                name:"modify",
+                id:$("input").attr("data-id"),
+                content:$("input").val()
+            },
+            type:"post",
+            success:function(data){
+                console.log(data);
+                getList();
+            }
+        })
+    }
+    getList();
+    $("#list").delegate("div","click",function(){
+        $("input").val($(this).html()).attr("data-id",$(this).attr("data-id"));
+    })
+</script>
+</body>
+</html>
