@@ -5,11 +5,15 @@
     <title>Document</title>
 </head>
 <body>
+<style>
+    .remove{
+        float: right;
+        cursor: pointer;
+    }
+</style>
 <textarea name="" id="" cols="30" rows="10"></textarea>
-<span onclick="add()">确定</span>
-<input type="text"/>
+<span class="sure">确定</span>
 
-<span onclick="modify()">修改</span>
 <div id="list">
 
 </div>
@@ -26,7 +30,7 @@
                data = JSON.parse(data);
                $("#list").html("");
                 for(var i=0;i<data.length;i++){
-                    $("#list").append("<div data-id='"+data[i].id+"'>"+data[i].content+"</div>");
+                    $("#list").append("<div data-id='"+data[i].id+"'><span class='modify'>"+data[i].content+"</span><span class='remove'>╳</span></div>");
                 }
             }
         })
@@ -40,7 +44,7 @@
             },
             type:"post",
             success:function(data){
-
+                $("textarea").val("");
                 getList();
             }
         })
@@ -54,7 +58,6 @@
             },
             type:"post",
             success:function(data){
-                console.log(data);
                 getList();
             }
         })
@@ -64,20 +67,31 @@
             url:"./api.php",
             data:{
                 name:"modify",
-                id:$("input").attr("data-id"),
-                content:$("input").val()
+                id:$("textarea").attr("data-id"),
+                content:$("textarea").val()
             },
             type:"post",
             success:function(data){
-                console.log(data);
+                $("textarea").attr("data-id","").val("");
                 getList();
             }
         })
     }
     getList();
-    $("#list").delegate("div","click",function(){
-        $("input").val($(this).html()).attr("data-id",$(this).attr("data-id"));
-    })
+    $("#list").delegate("div .modify","click",function(){
+        $("textarea").val($(this).html()).attr("data-id",$(this).closest("div").attr("data-id"));
+    });
+    $("#list").delegate("div .remove","click",function(){
+       remove($(this).closest("div").attr("data-id"));
+    });
+    $(".sure").click(function(){
+        if($("textarea").attr("data-id")){
+            modify();
+        }
+        else{
+            add();
+        }
+    });
 </script>
 </body>
 </html>
