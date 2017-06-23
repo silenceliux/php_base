@@ -15,8 +15,13 @@
          mysqli_query($conn,"SET NAMES 'UTF8'");
         mysqli_query($conn,"SET CHARACTER SET UTF8");
          mysqli_query($conn,"SET CHARACTER_SET_RESULTS=UTF8'");
+        mysqli_query($conn,"set character_set_client = utf8");
+        mysqli_query($conn,"set character_set_connection = utf8");
+        mysqli_query($conn,"set character_set_database = utf8");
+        mysqli_query($conn,"set character_set_server = utf8");
+        mysqli_query($conn,"set  character_set_system = utf8");
         if($_POST['name'] == "add"){
-            mysqli_query($conn, "insert into list (content) values(".$_POST['content'].")");
+            mysqli_query($conn, "insert into list (content) values('".$_POST['content']."')");
         }
         if($_POST['name'] == "list"){
             //查询数据库
