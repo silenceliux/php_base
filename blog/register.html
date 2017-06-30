@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+用户名： <input type="text" id="name"/>
+密码： <input type="text" id="password"/>
+<span onclick="sign()">注册</span>
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+    function sign(){
+        $.ajax({
+            url:"api/register.php",
+            data:{
+                name:$("#name").val(),
+                password:$("#password").val()
+            },
+            type:"post",
+            success:function(data){
+                data = JSON.parse(data);
+                if(data.status==200){
+                    location.href="./sign-in.html";
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
